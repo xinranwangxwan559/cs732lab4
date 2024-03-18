@@ -3,6 +3,8 @@ dotenv.config();
 
 import mongoose from "mongoose";
 // TODO import your schema here
+import Product from "./product-schema.js";
+
 
 // Hardcoded products list for testing
 const products = [
@@ -20,8 +22,12 @@ async function run() {
   await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 
   // TODO Clear db
+  await Product.deleteMany({});
+  console.log("Database cleared!");
 
   // TODO insert all products defined above
+  await Product.insertMany(products);
+  console.log("Products inserted!");
 
   await mongoose.disconnect();
   console.log("Done!");
